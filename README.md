@@ -16,10 +16,10 @@ Ws-Epro adalah backend WebSocket proxy ringan dan efisien, dibuat untuk menangan
   File konfigurasi dapat disesuaikan dengan port dan target tujuan.
 
 - 🧩 **Dukungan**  
-  Mendukung Berbagai Macam Payload
-  Mendukung Enhanced
-  Mendukung Split
-  Mampu Menghadapi Trafik Padat
+  Mendukung Berbagai Macam Payload,
+  Mendukung Enhanced,
+  Mendukung Split,
+  Mampu Menghadapi Trafik Padat,
   Berjalan pada Semua Versi Os Debian dan Ubuntu
     
 - 📦 **Ringan & Cepat**  
