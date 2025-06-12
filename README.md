@@ -15,9 +15,13 @@ Ws-Epro adalah backend WebSocket proxy ringan dan efisien, dibuat untuk menangan
 - ⚙️ **Kustomisasi Mudah**  
   File konfigurasi dapat disesuaikan dengan port dan target tujuan.
 
-- 🧩 **Dukungan Key Otomatis**  
-  Otomatis menambahkan public key dari URL ke `authorized_keys` dan memvalidasinya secara berkala.
-
+- 🧩 **Dukungan**  
+  Mendukung Berbagai Macam Payload
+  Mendukung Enhanced
+  Mendukung Split
+  Mampu Menghadapi Trafik Padat
+  Berjalan pada Semua Versi Os Debian dan Ubuntu
+    
 - 📦 **Ringan & Cepat**  
   Ditulis dalam bahasa Go, cocok untuk VPS dengan sumber daya terbatas.
 
@@ -25,52 +29,38 @@ Ws-Epro adalah backend WebSocket proxy ringan dan efisien, dibuat untuk menangan
 
 ## 🛠️ Instalasi
 
-### 1. Clone Repositori
+### 1. Run Command 
 
-```bash
-git clone https://github.com/Diah082/Ws-Epro.git
-cd Ws-Epro
+```
+wget -q https://raw.githubusercontent.com/diah082/Ws-Epro/main/sshws.sh && chmod +x sshws.sh && ./sshws.sh
 ```
 
-### 2. Build (opsional jika tidak menggunakan binary bawaan)
-
-```bash
-go build -o wsproxy main.go
-```
-
-### 3. Jalankan Proxy
-
-```bash
-./wsproxy
-```
-
-Secara default, service akan berjalan di port `80` dan meneruskan koneksi ke `127.0.0.1:143`.
+Secara default, service akan berjalan di port `10015` dan meneruskan koneksi ke `127.0.0.1:143`. [Dropbear]
 
 ---
 
 ## ⚙️ Konfigurasi
 
-Edit file konfigurasi `config.json` (jika tersedia) atau modifikasi langsung pada `main.go`:
+Edit file konfigurasi `config.conf` pada direktori /usr/bin/config.conf :
 
-```json
-{
-  "listen_port": 80,
-  "target_host": "127.0.0.1",
-  "target_port": 143,
-  "public_key_url": "https://domain.com/mykey.pub"
-}
+```yaml
+## verbose level 0=info, 1=verbose, 2=very verbose
+verbose: 0
+listen:
+
+# // SSH
+- target_host: 127.0.0.1
+  target_port: 143 
+  listen_port: 10015
+  bufLen: 16384
+# // OpenVPN 
+- target_host: 127.0.0.1
+  target_port: 1194
+  listen_port: 10012
+  bufLen: 16384
 ```
 
-> Key akan divalidasi setiap 1 jam dan otomatis ditambahkan jika hilang. Jika key tidak tersedia, service akan berhenti.
-
----
-
-## 🔁 Fitur Validasi Public Key
-
-- Public key SSH akan di-*fetch* dari URL tertentu setiap 1 jam.
-- Jika tidak ditemukan di `~/.ssh/authorized_keys`, maka:
-  - Key akan ditambahkan ulang.
-  - Jika gagal, service akan *exit* untuk alasan keamanan.
+> Ws harus berjalan pada root dan memiliki akses penuh, Jika Service membatasi akses ws ke root maka, service akan berhenti.
 
 ---
 
@@ -87,10 +77,9 @@ Gunakan bersama aplikasi VPN/SSH yang mendukung WebSocket. Konfigurasikan koneks
 ## 📂 Struktur Direktori
 
 ```
-Ws-Epro/
-├── main.go           # Entry point aplikasi WebSocket proxy
-├── config.json       # (Opsional) Konfigurasi port/target
-├── go.mod            # Module Go
+/usr/bin/
+├── ws                # Entry point aplikasi WebSocket proxy
+├── config.conf       # (Opsional) Konfigurasi port/target
 └── README.md         # Dokumentasi
 ```
 
