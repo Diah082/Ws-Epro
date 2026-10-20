@@ -1,5 +1,5 @@
 [Unit]
-Description=WebSocket E-Pro V2.2 By Newbie Store
+Description=WebSocket E-Pro V2.5 By Newbie Store
 Documentation=https://github.com/diah082
 After=syslog.target network-online.target
 
