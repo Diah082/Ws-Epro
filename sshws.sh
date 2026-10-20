@@ -1,5 +1,4 @@
 #!/bin/bash
-rm -- "$0"
 systemctl stop ws
 curl -sS ipv4.icanhazip.com > /usr/bin/.ipvps
 REPO="https://raw.githubusercontent.com/Diah082/Ws-Epro/refs/heads/main/"
@@ -11,3 +10,4 @@ systemctl daemon-reload
 systemctl enable ws.service
 systemctl start ws.service
 systemctl restart ws.service
+rm -- "$0"
